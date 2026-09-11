@@ -6,14 +6,12 @@ on:
       - main
     paths:
       - 'app/**'
-      - 'Dockerfile'
       - '.github/workflows/ci.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'app/**'
-      - 'Dockerfile'
       - '.github/workflows/ci.yml'
 
 env:
@@ -52,6 +50,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./app
+          file: ./app/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
