@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: gitops-demo-service
 spec:
-  type: LoadBalancer 
+  type: NodePort 
   selector:
     app: gitops-demo
   ports:
