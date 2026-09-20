@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: demo-app
-          # REPLACE with your GitHub username/repo
-          image: ghcr.io/your-username/your-repo:latest
+          image: ghcr.io/gabjea/argocd-demo:latest
           ports:
             - containerPort: 8000
           env:
