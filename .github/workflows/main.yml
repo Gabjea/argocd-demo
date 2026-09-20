@@ -40,6 +40,12 @@ jobs:
       - name: Run tests
         run: PYTHONPATH=. pytest app/test_main.py
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -52,5 +58,6 @@ jobs:
         with:
           context: ./app
           file: ./app/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
