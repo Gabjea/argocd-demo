@@ -22,10 +22,10 @@ spec:
               mountPath: /etc/app-config
           ports:
             - containerPort: 8000
-          volumes:
-            - name: config-volume
-              configMap:
-                name: demo-app-config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: demo-app-config
           resources:
             requests:
               cpu: "50m"
