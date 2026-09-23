@@ -6,13 +6,13 @@ on:
       - main
     paths:
       - 'app/**'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/main.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'app/**'
-      - '.github/workflows/ci.yml'
+      - '.github/workflows/main.yml'
 
 env:
   REGISTRY: ghcr.io
