@@ -5,4 +5,4 @@ metadata:
   labels:
     app: gitops-demo
 data:
-  ENABLE_PREMIUM_UI: "false"
+  ENABLE_PREMIUM_UI: "true"
