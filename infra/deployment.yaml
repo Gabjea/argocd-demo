@@ -17,16 +17,15 @@ spec:
       containers:
         - name: demo-app
           image: ghcr.io/gabjea/argocd-demo:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/app-config
           ports:
             - containerPort: 8000
-          env:
-            - name: APP_VERSION
-              value: "1.0.0"
-            - name: ENABLE_PREMIUM_UI
-              valueFrom:
-                configMapKeyRef:
-                  name: demo-app-config
-                  key: ENABLE_PREMIUM_UI
+          volumes:
+            - name: config-volume
+              configMap:
+                name: demo-app-config
           resources:
             requests:
               cpu: "50m"
