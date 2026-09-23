@@ -13,15 +13,17 @@ spec:
     metadata:
       labels:
         app: gitops-demo
+      annotations:
+        config-version: "1"
     spec:
       containers:
         - name: demo-app
           image: ghcr.io/gabjea/argocd-demo:latest
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/app-config
           ports:
             - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: demo-app-config
           resources:
             requests:
               cpu: "50m"
@@ -29,7 +31,3 @@ spec:
             limits:
               cpu: "200m"
               memory: "256Mi"
-      volumes:
-        - name: config-volume
-          configMap:
-            name: demo-app-config
