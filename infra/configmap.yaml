@@ -6,3 +6,4 @@ metadata:
     app: gitops-demo
 data:
   ENABLE_PREMIUM_UI: "true"
+  APP_VERSION: "1.1.0"
