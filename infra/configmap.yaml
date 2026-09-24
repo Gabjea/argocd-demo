@@ -5,5 +5,5 @@ metadata:
   labels:
     app: gitops-demo
 data:
-  ENABLE_PREMIUM_UI: "true"
-  APP_VERSION: "1.1.0"
+  ENABLE_PREMIUM_UI: "false"
+  APP_VERSION: "1.0.0"
