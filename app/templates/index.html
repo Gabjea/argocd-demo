@@ -75,27 +75,34 @@
       async function triggerHPA() {
         const btn = document.getElementById("stress-btn");
         const msg = document.getElementById("stress-msg");
-        btn.innerText = "Stressing CPU (60s)...";
+        const seconds = 20;
+
+        btn.disabled = true;
+        btn.innerText = `Stressing CPU (${seconds}s)...`;
         btn.classList.replace("bg-blue-600", "bg-red-500");
         btn.classList.replace("hover:bg-blue-700", "hover:bg-red-600");
         msg.classList.remove("hidden");
-        msg.innerText = "Generating sustained load. Watch the pods scale!";
+        msg.innerText = "Generating sustained load to trigger HPA.";
 
-        const endTime = Date.now() + 60000; 
+        try {
+          await Promise.all([
+            fetch(`/stress?seconds=${seconds}`),
+            fetch(`/stress?seconds=${seconds}`),
+            fetch(`/stress?seconds=${seconds}`),
+            fetch(`/stress?seconds=${seconds}`),
+            fetch(`/stress?seconds=${seconds}`)
+          ]);
 
-        const interval = setInterval(() => {
-          if (Date.now() > endTime) {
-            clearInterval(interval);
-            btn.innerText = "Generate CPU Load (Trigger HPA)";
-            btn.classList.replace("bg-red-500", "bg-blue-600");
-            btn.classList.replace("hover:bg-red-600", "hover:bg-blue-700");
-            msg.innerText = "Stress test complete.";
-            return;
-          }
-          for (let i = 0; i < 10; i++) {
-            fetch("/stress").catch(() => console.log("drop"));
-          }
-        }, 500);
+          msg.innerText = "Load complete. Check the HPA scaling.";
+        } catch (error) {
+          console.error("Stress request failed", error);
+          msg.innerText = "Load request failed. Try again.";
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "Generate CPU Load (Trigger HPA)";
+          btn.classList.replace("bg-red-500", "bg-blue-600");
+          btn.classList.replace("hover:bg-red-600", "hover:bg-blue-700");
+        }
       }
     </script>
   </body>
